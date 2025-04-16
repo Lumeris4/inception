@@ -7,4 +7,4 @@ COPY ./maria.sql /var/local/bin/.
 
 RUN mkdir /run/mysqld && chmod +x mariadb.sh
 
-CMD ["./maria.sh"]
+CMD ["./mariadb.sh"]
