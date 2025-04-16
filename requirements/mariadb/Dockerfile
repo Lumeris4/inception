@@ -1,16 +1,13 @@
 FROM debian:12.10
 
-RUN apt update && apt install -y mariadb-server mariadb-client && apt clean
+RUN apt update && apt upgrade -y && apt install -y mariadb-server
 
-COPY ./mariadb.sh /var/local/bin/mariadb.sh
-COPY ./maria.sql /var/local/bin/maria.sql
 COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/.
+COPY maria.sql /etc/mysql/init.sql
+COPY mariadb.sh .
 
-RUN mkdir -p /run/mysqld && \
-    chown mysql:mysql /run/mysqld && \
-    chmod 755 /run/mysqld && \
-    chmod +x /var/local/bin/mariadb.sh
+RUN mkdir /run/mysqld && chmod +x mariadb.sh
 
-CMD ["/var/local/bin/mariadb.sh"]
+CMD ["./mariadb.sh"]
 
 

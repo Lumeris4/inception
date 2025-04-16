@@ -6,6 +6,7 @@ services:
     container_name: nginx
     depends_on:
       - wp-php
+      - maria-db
     ports:
       - "443:443"
     volumes:
@@ -50,6 +51,9 @@ services:
     networks:
       - inception
     restart: always
+    
+networks:
+  inception:
 
 volumes:
   wordpress_data:
@@ -64,7 +68,3 @@ volumes:
       type: none
       device: /home/administrateur/data/database
       o: bind
-
-networks:
-  inception:
-    driver: bridge

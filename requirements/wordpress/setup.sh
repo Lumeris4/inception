@@ -3,14 +3,9 @@
 set -e
 
 cd /var/www/html
+
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
-
-if [ ! -f wp-config.php ]; then
-    echo "Downloading WordPress..."
-    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-    chmod +x wp-cli.phar
-
     ./wp-cli.phar core download --allow-root
 
     echo "Creating config..."
@@ -35,7 +30,6 @@ if [ ! -f wp-config.php ]; then
         --role=subscriber \
         --user_pass=${WP_USER_PASSWORD} \
         --allow-root
-fi
 
 echo "Starting php-fpm..."
 php-fpm8.2 -F
