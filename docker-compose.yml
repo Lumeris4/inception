@@ -24,20 +24,24 @@ services:
     networks:
       - inception
     restart: always
-    
-   #maria-db:
-   #	build: ./requirements/mariadb
-   #	container_name: maria-db
-   #	expose:
-   #	   - "3306"
-   #	networks:
-    #       - inception:
-     #   restart: always
+
+  maria-db:
+    build: ./requirements/mariadb
+    container_name: maria-db
+    expose:
+      - "3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - inception
+    restart: always
 
 volumes:
   wordpress_data:
+  db_data:
 
 networks:
   inception:
     driver: bridge
+
 
