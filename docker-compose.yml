@@ -17,10 +17,25 @@ services:
   wp-php:
     build: ./requirements/wordpress
     container_name: wp-php
+    depends_on:
+      - maria-db
     expose:
       - "9000"
     volumes:
       - wordpress_data:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: maria-db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_URL: https://localhost
+      WORDPRESS_TITLE: "Mon Site WordPress"
+      WP_ADMIN_USER: admin
+      WP_ADMIN_PASSWORD: admin123
+      WP_ADMIN_EMAIL: admin@example.com
+      WP_USER: user
+      WP_USER_EMAIL: user@example.com
+      WP_USER_PASSWORD: user123
     networks:
       - inception
     restart: always
@@ -38,10 +53,18 @@ services:
 
 volumes:
   wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/administrateur/data/web
+      o: bind
   db_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/administrateur/data/database
+      o: bind
 
 networks:
   inception:
     driver: bridge
-
-
