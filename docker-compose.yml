@@ -10,9 +10,9 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress_data:/var/www/html
+      - web:/var/www/html
     networks:
-      - inception
+      inception:
     restart: always
 
   wp-php:
@@ -23,7 +23,7 @@ services:
     expose:
       - "9000"
     volumes:
-      - wordpress_data:/var/www/html
+      - web:/var/www/html
     environment:
       WORDPRESS_DB_HOST: maria-db
       WORDPRESS_DB_NAME: wordpress
@@ -38,7 +38,7 @@ services:
       WP_USER_EMAIL: user@example.com
       WP_USER_PASSWORD: user123
     networks:
-      - inception
+      inception:
     restart: always
 
   maria-db:
@@ -47,24 +47,24 @@ services:
     expose:
       - "3306"
     volumes:
-      - db_data:/var/lib/mysql
+      - database:/var/lib/mysql
     networks:
-      - inception
+      inception:
     restart: always
     
 networks:
   inception:
 
 volumes:
-  wordpress_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/administrateur/data/web
-      o: bind
-  db_data:
+  database:
     driver: local
     driver_opts:
       type: none
       device: /home/administrateur/data/database
+      o: bind
+  web:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/administrateur/data/web
       o: bind
