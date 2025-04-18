@@ -10,5 +10,5 @@ COPY ./www.conf /etc/php/8.2/fpm/pool.d/.
 COPY ./setup.sh .
 RUN chmod +x setup.sh
 
-CMD ["/bin/bash", "/setup.sh"]
+CMD ["./setup.sh"]
 
