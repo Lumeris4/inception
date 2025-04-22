@@ -1,32 +1,24 @@
-version: '3.8'
+version: "3.8"
 
 services:
   nginx:
-    build: ./requirements/nginx
+    build: requirements/nginx/.
     container_name: nginx
     depends_on:
-      - wp-php
-      - maria-db
+      - wordpress
+      - mariadb
     ports:
       - "443:443"
     volumes:
       - web:/var/www/html
     networks:
       inception:
-    restart: always
-
-  wp-php:
-    build: ./requirements/wordpress
+  wordpress:
+    build: requirements/wordpress/.
     container_name: wp-php
     depends_on:
-      - maria-db
+      - mariadb
     environment:
-      WORDPRESS_DB_HOST: maria-db
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DB_USER: wpuser
-      WORDPRESS_DB_PASSWORD: password
-      WORDPRESS_URL: https://localhost
-      WORDPRESS_TITLE: "Mon Site WordPress"
       WP_ADMIN_USER: admin
       WP_ADMIN_PASSWORD: admin123
       WP_ADMIN_EMAIL: admin@example.com
@@ -37,17 +29,14 @@ services:
       - web:/var/www/html
     networks:
       inception:
-    restart: always
-
-  maria-db:
-    build: ./requirements/mariadb
-    container_name: maria-db
+  mariadb:
+    build: requirements/mariadb/.
+    container_name: mariadb
     volumes:
       - database:/var/lib/mysql
     networks:
       inception:
-    restart: always
-    
+
 networks:
   inception:
 
@@ -56,11 +45,12 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/administrateur/data/database
+      device: /home/lelanglo/data/database
       o: bind
   web:
     driver: local
     driver_opts:
       type: none
-      device: /home/administrateur/data/web
+      device: /home/lelanglo/data/web
       o: bind
+

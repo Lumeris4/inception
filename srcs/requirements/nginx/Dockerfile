@@ -9,9 +9,6 @@ RUN apt update && apt install -y nginx openssl && \
       -keyout /etc/ssl/private/nginx.key \
       -out /etc/ssl/private/nginx.crt
 
-COPY default.conf /etc/nginx/conf.d/
+COPY default /etc/nginx/sites-available/.
 
 CMD ["nginx", "-g", "daemon off;"]
-
-
-
