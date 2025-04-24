@@ -15,7 +15,7 @@ echo "Creating config..."
 
 echo "Installing WordPress..."
 ./wp-cli.phar core install \
---url=lelanglo.42.fr \
+--url=https://lelanglo.42.fr \
 --title=inception \
 --admin_user=${WP_ADMIN_USER} \
 --admin_password=${WP_ADMIN_PASSWORD} \
