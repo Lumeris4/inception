@@ -12,7 +12,7 @@ services:
     volumes:
       - web:/var/www/html
     networks:
-      inception:
+      - inception
     restart: always
   wordpress:
     build: requirements/wordpress/.
@@ -29,18 +29,19 @@ services:
     volumes:
       - web:/var/www/html
     networks:
-      inception:
-    restart: always
+      - inception
   mariadb:
     build: requirements/mariadb/.
     container_name: mariadb
     volumes:
       - database:/var/lib/mysql
     networks:
-      inception:
+      - inception
     restart: always
 networks:
   inception:
+    name: inception
+    driver: bridge
 
 volumes:
   database:

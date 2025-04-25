@@ -1,5 +1,5 @@
 
-FROM debian:12.10
+FROM debian:bullseye
 
 RUN apt update && apt install -y nginx openssl && \
     mkdir -p /etc/ssl/private && \
