@@ -16,7 +16,7 @@ services:
     restart: always
   wordpress:
     build: requirements/wordpress/.
-    container_name: wp-php
+    container_name: wordpress
     depends_on:
       - mariadb
     environment:
